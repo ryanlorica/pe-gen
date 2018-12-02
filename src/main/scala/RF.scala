@@ -6,12 +6,12 @@ class RF(c: RFConfig) extends Module{
 
   val regs = RegInit(Vec(Seq.fill(c.memSize){0.S(c.dataWidth.W)}))
 
-  when (io.wEnable) {
-    regs(io.wAddr) := io.dataIn
+  when (io.ctrl.wEnable) {
+    regs(io.ctrl.wAddr) := io.dataIn
   }
 
-  when (io.rEnable) {
-    io.dataOut :=  regs(io.rAddr)
+  when (io.ctrl.rEnable) {
+    io.dataOut :=  regs(io.ctrl.rAddr)
   } .otherwise {
     io.dataOut := 0.U
   }

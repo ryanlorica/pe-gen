@@ -1,7 +1,9 @@
-import scala.math.pow
+package orig
 
 import chisel3._
 import chisel3.util._
+
+import scala.math.pow
 
 class PartialRFConfig(
                        val numInputs: Int,

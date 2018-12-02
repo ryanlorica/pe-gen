@@ -1,3 +1,5 @@
+package orig
+
 import chisel3._
 
 class NLUConfig(val inBitWidth: Int, val outBitWidth: Int, val funcs: List[String]) {

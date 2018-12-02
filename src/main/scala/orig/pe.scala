@@ -1,3 +1,5 @@
+package orig
+
 import chisel3._
 
 class PEConfig(
@@ -10,13 +12,13 @@ class PEConfig(
                 val smWidth: Int) {
 
   require(ipuConfig.width == weightRFConfig.numIntOutputs,
-    "IPU input width not equal to Weight RF Internal Output width.\n")
+    "orig.IPU input width not equal to Weight orig.RF Internal Output width.\n")
   require(ipuConfig.width == actvtnRFConfig.numIntOutputs,
-    "IPU input width not equal to Activation RF Internal Output width.\n")
+    "orig.IPU input width not equal to Activation orig.RF Internal Output width.\n")
 
   if(ipuConfig.bpFirm) {
     require(aluConfig.addSupp || aluConfig.maxSupp,
-      "Incompatible ALU and IPU Configurations")
+      "Incompatible orig.ALU and orig.IPU Configurations")
   }
 }
 

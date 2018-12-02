@@ -1,3 +1,5 @@
+package orig
+
 import chisel3._
 
 class ALUConfig(val dataWidth: Int, val funcs: List[String]) {

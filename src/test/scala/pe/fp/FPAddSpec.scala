@@ -11,8 +11,17 @@ class FPAddSpec extends FlatSpec with Matchers {
 
     val config = FP16
 
-    chisel3.iotesters.Driver(() => new FPAdd(config)) { c =>
-      new FPAddInstance(c)
+    chisel3.iotesters.Driver(() => new FPAdd(config), backendType = "verilator") {
+      c => new FPAddInstance(c)
+    } should be(true)
+  }
+
+  it should "Add correctly" in {
+
+    val config = FP16
+
+    chisel3.iotesters.Driver(() => new FPAdd(config), backendType = "verilator") {
+      c => new FPAddTester(c)
     } should be(true)
   }
 }

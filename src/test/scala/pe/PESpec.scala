@@ -13,8 +13,8 @@ class PESpec extends FlatSpec with Matchers {
     val config = PEConfig(weightRFSize = 8, actvtnRFSize = 8, intrnlRFSize = 8,
       dataType = INT8, functionType = ReLU)
 
-    chisel3.iotesters.Driver(() => new PE(config)) { c =>
-      new PEInstance(c)
+    chisel3.iotesters.Driver(() => new PE(config)) {
+      c => new PEInstance(c)
     } should be(true)
   }
 }

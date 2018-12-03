@@ -3,6 +3,10 @@ package pe.mac
 import chisel3._
 
 class MACInterface(c: MACConfig) extends Bundle {
+
+  override def cloneType: MACInterface.this.type =
+    new MACInterface(c).asInstanceOf[this.type]
+
   val ctrl: MACControl = new MACControl(c)
 
   private val bitWidth: Int = c.dataType.bitWidth

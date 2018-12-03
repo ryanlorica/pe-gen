@@ -6,7 +6,7 @@ import chisel3._
 class RF(c: RFConfig) extends Module {
   val io: RFInterface = IO(new RFInterface(c))
 
-  val regs = RegInit(Vec(Seq.fill(c.memSize){0.U(c.dataWidth.W)}))
+  val regs = RegInit(VecInit(Seq.fill(c.memSize){0.U(c.dataWidth.W)}))
 
   when (io.ctrl.wEnable) {
     regs(io.ctrl.wAddr) := io.dataIn

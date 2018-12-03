@@ -1,8 +1,6 @@
 package pe.fp
 
-import chisel3.BlackBox
-import chisel3.util.HasBlackBoxResource
-import chisel3.experimental._
+import chisel3._
 
 import pe._
 

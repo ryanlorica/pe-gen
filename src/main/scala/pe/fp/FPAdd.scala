@@ -9,8 +9,10 @@ class FPAdd(dataType: DataType) extends Module {
   val io: FPAddIO = IO(new FPAddIO(dataType.bitWidth))
 
   val hfAdd: HardfloatAdd = Module(dataType match {
+    case FP8 => new ValExec_MulAddRecF8_add(dataType)
     case FP16 => new ValExec_MulAddRecF16_add(dataType)
     case FP32 => new ValExec_MulAddRecF32_add(dataType)
+    case BF16 => new ValExec_MulAddRecBF16_add(dataType)
   })
 
   hfAdd.io.io_roundingMode := 0.U

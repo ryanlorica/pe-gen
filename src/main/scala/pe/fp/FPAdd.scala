@@ -8,20 +8,22 @@ class FPAdd(dataType: DataType) extends Module {
 
   private val bitWidth: Int = dataType.bitWidth
 
+  private class HardfloatAddIO extends Bundle {
+    val io_a = Input(UInt(bitWidth.W))
+    val io_b = Input(UInt(bitWidth.W))
+    val io_roundingMode = Input(UInt(3.W))
+    val io_detectTininess = Input(Bool())
+    val io_expected_out = Input(UInt(bitWidth.W))
+    val io_expected_exceptionFlags = Input(UInt(5.W))
+    val io_expected_recOut = Output(UInt((bitWidth + 1).W))
+    val io_actual_out = Output(UInt((bitWidth + 1).W))
+    val io_actual_exceptionFlags = Output(UInt(5.W))
+    val io_check = Output(Bool())
+    val io_pass = Output(Bool())
+  }
+
   private class HardfloatAdd(dataType: DataType) extends BlackBox with HasBlackBoxResource {
-    val io = IO(new Bundle {
-      val io_a = Input(UInt(bitWidth.W))
-      val io_b = Input(UInt(bitWidth.W))
-      val io_roundingMode = Input(UInt(3.W))
-      val io_detectTininess = Input(Bool())
-      val io_expected_out = Input(UInt(bitWidth.W))
-      val io_expected_exceptionFlags = Input(UInt(5.W))
-      val io_expected_recOut = Output(UInt((bitWidth + 1).W))
-      val io_actual_out = Output(UInt((bitWidth + 1).W))
-      val io_actual_exceptionFlags = Output(UInt(5.W))
-      val io_check = Output(Bool())
-      val io_pass = Output(Bool())
-    })
+    val io: HardfloatAddIO = IO(new HardfloatAddIO)
     dataType match {
       case FP8 => setResource("/ValExec_MulAddRecF8_add.v")
       case FP16 => setResource("/ValExec_MulAddRecF16_add.v")
@@ -30,11 +32,7 @@ class FPAdd(dataType: DataType) extends Module {
     }
   }
 
-  val io = IO(new Bundle {
-    val in1 = Input(UInt(bitWidth.W))
-    val in2 = Input(UInt(bitWidth.W))
-    val out = Output(UInt(bitWidth.W))
-  })
+  val io: FPAddIO = IO(new FPAddIO(bitWidth))
 
   val hfAdd = Module(new HardfloatAdd(dataType))
   hfAdd.io.io_a := io.in1

@@ -23,7 +23,7 @@ class FPMult(dataType: DataType) extends Module {
   }
 
   private class HardfloatMult(dataType: DataType) extends BlackBox with HasBlackBoxResource {
-    val io = IO(new HardfloatMultIO(dataType))
+    val io: HardfloatMultIO = IO(new HardfloatMultIO(dataType))
     dataType match {
       case FP8 => setResource("/ValExec_MulAddRecF8_mul.v")
       case FP16 => setResource("/ValExec_MulAddRecF16_mul.v")
@@ -34,7 +34,7 @@ class FPMult(dataType: DataType) extends Module {
 
   val io: FPMultIO = IO(new FPMultIO(bitWidth))
 
-  val hfMult = Module(new HardfloatMult(dataType))
+  private val hfMult = Module(new HardfloatMult(dataType))
   hfMult.io.a := io.in1
   hfMult.io.b := io.in2
   io.out := hfMult.io.actual_out

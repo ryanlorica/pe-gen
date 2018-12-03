@@ -34,7 +34,7 @@ class FPAdd(dataType: DataType) extends Module {
 
   val io: FPAddIO = IO(new FPAddIO(bitWidth))
 
-  val hfAdd = Module(new HardfloatAdd(dataType))
+  private val hfAdd = Module(new HardfloatAdd(dataType))
   hfAdd.io.io_a := io.in1
   hfAdd.io.io_b := io.in2
   io.out := hfAdd.io.io_actual_out

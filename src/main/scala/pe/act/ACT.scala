@@ -12,11 +12,14 @@ class ACT(c: ACTConfig) extends Module {
     case ReLU => {
       when (io.ctrl.enable) {
         when (io.input.asSInt() < 0.S) {
-          io.output := 0.S
+          io.output := 0.U
         } .otherwise {
           io.output := io.input
         }
+      } .otherwise {
+        io.output := 0.U
       }
     }
+    case _ => io.output := 0.U
   }
 }

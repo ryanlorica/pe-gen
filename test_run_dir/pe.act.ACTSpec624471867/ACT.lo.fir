@@ -1,0 +1,13 @@
+circuit ACT : @[:@2.0]
+  module ACT : @[:@3.2]
+    input clock : Clock @[:@4.4]
+    input reset : UInt<1> @[:@5.4]
+    input io_ctrl_enable : UInt<1> @[:@6.4]
+    input io_input : UInt<8> @[:@6.4]
+    output io_output : UInt<8> @[:@6.4]
+  
+    node _T_7 = asSInt(io_input) @[ACT.scala 14:30:@9.6]
+    node _T_9 = lt(_T_7, asSInt(UInt<1>("h0"))) @[ACT.scala 14:33:@10.6]
+    node _GEN_0 = mux(_T_9, UInt<1>("h0"), io_input) @[ACT.scala 14:40:@11.6]
+    node _GEN_1 = mux(io_ctrl_enable, _GEN_0, UInt<1>("h0")) @[ACT.scala 13:29:@8.4]
+    io_output <= _GEN_1 @[ACT.scala 15:21:@12.8 ACT.scala 17:21:@15.8 ACT.scala 20:19:@19.6]

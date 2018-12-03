@@ -3,7 +3,7 @@ package pe.rf
 import chisel3._
 
 
-class RF(c: RFConfig) extends Module{
+class RF(c: RFConfig) extends Module {
   val io: RFInterface = IO(new RFInterface(c))
 
   val regs = RegInit(Vec(Seq.fill(c.memSize){0.U(c.dataWidth.W)}))
